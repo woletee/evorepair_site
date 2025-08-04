@@ -1,4 +1,4 @@
-import React, { JSX } from 'react';
+import React from 'react';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { notFound } from 'next/navigation';
@@ -97,12 +97,14 @@ function programToDot(program: string): string {
 }
 function escapeLabel(s: string) { return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"'); }
 
+/** NOTE: In Next.js 15, `params` is async. Treat it as a Promise and await it. */
 export default async function TaskPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<JSX.Element> {
-  const { id } = params;
+  const { id } = await params; // <-- important change for Next 15
+
   const task = await loadArcTask(id);
   if (!task) notFound();
 
