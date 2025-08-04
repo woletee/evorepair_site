@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["react"],                  // ✅ This line fixes JSX error
     "plugins": [
       {
         "name": "next"

@@ -97,13 +97,13 @@ function programToDot(program: string): string {
 }
 function escapeLabel(s: string) { return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"'); }
 
-/** NOTE: In Next.js 15, `params` is async. Treat it as a Promise and await it. */
+/** Next.js 15: `params` is async — await it. */
 export default async function TaskPage({
   params,
 }: {
   params: Promise<{ id: string }>;
-}): Promise<JSX.Element> {
-  const { id } = await params; // <-- important change for Next 15
+}) {
+  const { id } = await params;
 
   const task = await loadArcTask(id);
   if (!task) notFound();
