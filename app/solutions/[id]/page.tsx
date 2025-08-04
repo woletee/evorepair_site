@@ -1,3 +1,4 @@
+import React, { JSX } from 'react';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { notFound } from 'next/navigation';
@@ -96,7 +97,11 @@ function programToDot(program: string): string {
 }
 function escapeLabel(s: string) { return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"'); }
 
-export default async function TaskPage({ params }: { params: { id: string } }) {
+export default async function TaskPage({
+  params,
+}: {
+  params: { id: string };
+}): Promise<JSX.Element> {
   const { id } = params;
   const task = await loadArcTask(id);
   if (!task) notFound();
